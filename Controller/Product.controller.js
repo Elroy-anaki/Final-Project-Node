@@ -4,14 +4,13 @@ module.exports = {
   getAllProducts: async (req, res) => {
     try {
       const allProducts = await productModel.find();
-      console.log(allProducts);
-      return res.json({
+      res.json({
         success: true,
         message: "success add Products",
         allProducts,
       });
     } catch (error) {
-      return res.json({
+      res.json({
         success: false,
         message: "not success add Products",
         error,
