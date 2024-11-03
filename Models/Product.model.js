@@ -4,6 +4,7 @@ const productSchema = new mongoose.Schema({
   productName: {
     type: String,
     required: true,
+    unique:true
   },
   productDescription: {
     type: String,
@@ -16,6 +17,5 @@ const productSchema = new mongoose.Schema({
     type: String,
   },
 });
-
-const productModel = mongoose.model("Product", productSchema);
+const productModel = mongoose.model("Products", productSchema);
 module.exports = productModel;
