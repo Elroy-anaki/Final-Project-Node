@@ -1,5 +1,4 @@
 const express = require("express");
-const productModel = require("../Models/Product.model");
 const {
   getAllProducts,
   getById,
@@ -7,7 +6,7 @@ const {
   editProduct,
   deleteProduct,
 } = require("../Controller/Product.controller");
-
+const {checkSchema} = require('../middlewares/PUT+POST.middleware')
 const route = express.Router();
 
 // TODO add a midllewares
@@ -17,9 +16,10 @@ route.get("/getAllProducts", getAllProducts);
 
 route.get("/getById/:id", getById);
 
-route.post("/addProduct", addProduct);
+route.post("/addProduct",checkSchema, addProduct);
 
-route.put("/editProduct", editProduct);
+// TODO if I need to pass all product all time for the schema? (ASK EYAL!!)
+route.put("/editProduct",checkSchema, editProduct);
 
 route.delete("/deleteProduct/:id", deleteProduct);
 
