@@ -6,13 +6,13 @@ module.exports = {
       const allProducts = await productModel.find();
       res.json({
         success: true,
-        message: "success add Products",
+        message: "Take",
         allProducts,
       });
     } catch (error) {
       res.json({
         success: false,
-        message: "not success add Products",
+        message: "NOT Take!!!",
         error,
       });
     }
@@ -27,15 +27,16 @@ module.exports = {
   },
   addProduct: async (req, res) => {
     const newProdcut = req.body;
+    console.log(newProdcut);
     try {
       const product = await productModel.create(newProdcut);
-      res.json({
+      res.status(200).json({
         success: true,
         message: "added product!",
         product,
       });
     } catch (error) {
-      return res.json({
+      return res.status(401).json({
         success: false,
         message: "NOT added product!",
         error,
@@ -44,7 +45,7 @@ module.exports = {
   },
   editProduct: async (req, res) => {
     try {
-      const id = req.body.id;
+      const id = req.params.id;
       const productAfterEdit = await productModel.findByIdAndUpdate(
         id,
         req.body,
@@ -60,7 +61,8 @@ module.exports = {
       const deletedProduct = await productModel.findByIdAndDelete(
         req.params.id
       );
-      res.send(deletedProduct);
+      const allProducts = await productModel.find();
+      res.status(200).json(allProducts);
     } catch (error) {}
   },
 };
