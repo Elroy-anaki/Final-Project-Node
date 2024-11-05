@@ -1,4 +1,4 @@
-const productModel = require("../Models/Product.model");
+const productModel = require("../models/Product.model");
 
 module.exports = {
   checkSchema: async (req, res, next) => {
