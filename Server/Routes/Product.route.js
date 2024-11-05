@@ -5,8 +5,8 @@ const {
   addProduct,
   editProduct,
   deleteProduct,
-} = require("../controllers/Product.controller");
-const {checkSchema} = require('../schema/product.schema')
+} = require("../controllers/product.controller");
+const {checkProductSchema} = require('../schema/checkSchema')
 const route = express.Router();
 
 
@@ -15,7 +15,7 @@ route.get("/getAllProducts", getAllProducts);
 
 route.get("/getById/:id", getById);
 
-route.post("/addProduct",checkSchema, addProduct);
+route.post("/addProduct",checkProductSchema, addProduct);
 
 route.put("/editProduct/:id", editProduct);
 
