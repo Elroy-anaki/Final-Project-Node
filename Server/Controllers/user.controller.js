@@ -22,6 +22,10 @@ module.exports = {
       // Get the email + password
       const { userEmail, userPassword } = req.body;
 
+      if(!userEmail || !userPassword){
+        
+      }
+
       // Find the user with email + check if exist?!
       const user = await userModel.findOne({ userEmail });
       if (!user) throw "The user doesn't exist!";

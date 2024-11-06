@@ -1,7 +1,7 @@
 const baseUrl = "http://localhost:3000/products";
 
 const productsTB = document.querySelector("#products-table");
-const newProductForm = document.querySelector("#new-product-form");
+// const newProductForm = document.querySelector("#new-product-form");
 const form = document.querySelector("form");
 
 async function getProducts() {
@@ -89,4 +89,8 @@ form.addEventListener("submit", async (e) => {
 function addProductBtn() {
     productsTB.innerHTML = '';
     form.style.display = 'block';
+}
+
+function test(){
+  alert("FSFF")
 }
