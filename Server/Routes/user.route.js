@@ -9,4 +9,10 @@ route.post("/signUp", checkUserSchema, signUp);
 
 route.post("/signIn", signIn);
 
+route.get("/r", (req, res) => {
+    res.clearCookie("token");
+    res.json("remove Token")
+})
+
+
 module.exports = route;

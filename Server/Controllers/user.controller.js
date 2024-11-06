@@ -1,6 +1,6 @@
 const userModel = require("../models/user.model");
 const { compare } = require("bcrypt");
-
+const {createToken} = require('../service/token.service')
 
 module.exports = {
   signUp: async (req, res) => {
@@ -28,12 +28,17 @@ module.exports = {
 
       // Compare the input password with the current password in DB
       const isCurrectPassword = await compare(userPassword, user.userPassword);
-      console.log(isCurrectPassword)  
+      console.log("TTT", isCurrectPassword);
       if (!isCurrectPassword) throw "The password isn't currect!";
 
-      res.json({ succses: true, msg: "Enter in system" });
+      // Create a token 
+      const token = await createToken(user);
+      console.log("FFFF", token)
+      res.cookie("token", token)
+
+      res.json({ succses: true, msg: "Enter in system",token });
     } catch (error) {
-      res.status(400).json({ succses: false, msg: error });
+      res.status(401).json({ succses: false, msg: error });
     }
   },
 };
