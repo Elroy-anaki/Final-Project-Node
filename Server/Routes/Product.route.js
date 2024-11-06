@@ -5,8 +5,9 @@ const {
   addProduct,
   editProduct,
   deleteProduct,
-} = require("../controllers/product.controller");
+} = require("../controllers/Product.controller");
 const {checkProductSchema} = require('../schema/checkSchema')
+const {verifyToken} = require('../middlewares/verifyToken') 
 const route = express.Router();
 
 
@@ -15,10 +16,10 @@ route.get("/getAllProducts", getAllProducts);
 
 route.get("/getById/:id", getById);
 
-route.post("/addProduct",checkProductSchema, addProduct);
+route.post("/addProduct",verifyToken, checkProductSchema, addProduct);
 
-route.put("/editProduct/:id", editProduct);
+route.put("/editProduct/:id",verifyToken, editProduct);
 
-route.delete("/deleteProduct/:id", deleteProduct);
+route.delete("/deleteProduct/:id",verifyToken, deleteProduct);
 
 module.exports = route;
