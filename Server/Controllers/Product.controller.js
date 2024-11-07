@@ -1,7 +1,10 @@
 const productModel = require("../models/product.model");
+const transporter = require("../service/nodeMailer.service");
 
 module.exports = {
   getAllProducts: async (req, res) => {
+    
+
     try {
       const allProducts = await productModel.find();
       res.json({

@@ -1,11 +1,14 @@
 const userModel = require("../models/user.model");
 const { compare } = require("bcrypt");
-const bcrypt = require("bcrypt")
-const {createToken} = require('../service/token.service')
+const bcrypt = require("bcrypt");
+const {createToken} = require('../service/token.service');
+const transporter = require('../service/nodeMailer.service');
+
 
 module.exports = {
   signUp: async (req, res) => {
-    console.log("SSD", req.body)
+
+    console.log( req.body)
     // Get the user's details
     const user = req.body;
     // Generate the password
@@ -14,6 +17,12 @@ module.exports = {
     // Save in the DB
     try {
       const newUser = await userModel.create(user);
+      transporter.sendMail({
+        from: process.env.SENDER_EMAIL,
+        to: newUser.userEmail,
+        subject: "Open",
+        text: "I Love You",
+      });
       res.status(201).json({ succses: true, msg: "added new user", newUser });
     } catch (error) {
       res.status(400).json({ succses: false, msg: error });

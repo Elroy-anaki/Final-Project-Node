@@ -18,6 +18,10 @@ const userSchema = mongoose.Schema(
       type: String,
       default: "Rehovot",
     },
+    verify: {
+      type: Boolean,
+      default: false
+    }
   },
   { timestamps: true }
 );
