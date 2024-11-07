@@ -13,99 +13,73 @@
     <script defer src="script.js"></script>
     <title>Products</title>
   </head>
-  <body>
-    <header class="bg-gray-300">
-      <ul class="w-2/5 m-auto flex justify-between items-center px-6 py-1">
-        <li>
-          <button
-            class="text-xl bg-gray-500 rounded-md px-5 py-3 text-white hover:bg-gray-400"
-          >
-            <a href="#Products" onclick="getProducts()">Products</a>
-          </button>
-        </li>
-        <li>
-          <button
-            class="text-xl bg-gray-500 rounded-md px-5 py-3 text-white hover:bg-gray-400"
-          >
-            <a href="#addProudct" onclick="addProductBtn()">Add Product</a>
-          </button>
-        </li>
-      </ul>
-    </header>
-    <main class="w-3/4 m-auto mt-6">
-      <section id="products-table"></section>
-      <section id="new-product-form">
-        <form
-          class="max-w-md mx-auto border-2 border-slate-500 p-8 rounded-lg hidden"
+  <body class="mt-10">
+    <div class="border-2 border-black w-2/6 m-auto rounded-xl">
+      <div class="w-full border-b-2 border-b-blue">
+        <div
+          class="border-b-2 border-b-gray-800 bg-slate-300 rounded-t-xl flex justify-center items-center"
         >
-          <div class="relative z-0 w-full mb-5 group">
-            <input
-              type="text"
-              name="productName"
-              id="productName"
-              class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=" "
-              required
-            />
-            <label
-              for="productName"
-              class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-              >Name</label
-            >
-          </div>
-          <div class="relative z-0 w-full mb-5 group">
-            <input
-              type="number"
-              name="productPrice"
-              id="productPrice"
-              class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=" "
-              required
-            />
-            <label
-              for="productPrice"
-              class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-              >Price</label
-            >
-          </div>
-          <div class="relative z-0 w-full mb-5 group">
-            <input
-              type="text"
-              name="productDescription"
-              id="productDescription"
-              class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=" "
-            />
-            <label
-              for="productDescription"
-              class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-              >Description</label
-            >
-          </div>
-          <div class="relative z-0 w-full mb-5 group">
-            <input
-              type="url"
-              name="productImage"
-              id="productImage"
-              class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=" "
-            />
-            <label
-              for="productImage"
-              class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-              >Image (URL)</label
-            >
-          </div>
-          <div class="text-center">
-            <button
-              type="submit"
-              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              Add Product
-            </button>
-          </div>
-        </form>
-      </section>
-    </main>
+          <h1 class="text-3xl text-sky-500 my-3 ">Register Form</h1>
+        </div>
+        <div>
+          <form class="w-full rounded-b-xl p-10">
+            <div class="flex flex-col px-4 py-2">
+              <div>
+                <label for="userName" class="ml-1">Full Name</label>
+                <input
+                  type="text"
+                  name="userName"
+                  id="userName"
+                  class="bg-slate-200 w-full h-9 rounded-md mb-5 text-black font-semibold border-2 border-sky-200"
+                  placeholder=" Your name..."
+                  required
+                />
+              </div>
+              <div>
+                <label for="userName" class="mb-1 ml-1">Email</label>
+                <input
+                  type="email"
+                  name="userName"
+                  id="userName"
+                  class="bg-slate-200 w-full h-9 rounded-md mb-5 text-black font-semibold border-2 border-sky-200"
+                  placeholder=" Your email..."
+                  required
+                />
+              </div>
+              <div>
+                <label for="userName" class="mb-1 ml-1">Password</label>
+                <input
+                  type="password"
+                  name="userName"
+                  id="userName"
+                  class="bg-slate-200 w-full h-9 rounded-md mb-5 text-black font-semibold border-2 border-sky-200"
+                  placeholder=" Your password.."
+                  required
+                />
+              </div>
+              <div>
+                <label for="userName" class="mb-1 ml-1">City</label>
+                <input
+                  type="text"
+                  name="userName"
+                  id="userName"
+                  class="bg-slate-200 w-full h-9 rounded-md mb-5 text-black font-semibold border-2 border-sky-200"
+                  placeholder=" Live in...."
+                  required
+                />
+              </div>
+            </div>
+            <div class="text-center">
+              <button
+                type="submit"
+                class="text-white rounded-lg bg-sky-500 text-xl px-3 p-2 font-semibold"
+              >
+                Submit
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

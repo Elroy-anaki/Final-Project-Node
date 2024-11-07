@@ -16,10 +16,13 @@ route.get("/getAllProducts", getAllProducts);
 
 route.get("/getById/:id", getById);
 
-route.post("/addProduct",verifyToken, checkProductSchema, addProduct);
+// ADD verifyToken,
+route.post("/addProduct", checkProductSchema, addProduct);
 
-route.put("/editProduct/:id",verifyToken, editProduct);
+// ADD verifyToken,
+route.put("/editProduct/:id", editProduct);
 
-route.delete("/deleteProduct/:id",verifyToken, deleteProduct);
+// ADD verifyToken,
+route.delete("/deleteProduct/:id", deleteProduct);
 
 module.exports = route;
