@@ -22,6 +22,8 @@ module.exports = {
         to: newUser.userEmail,
         subject: "Open",
         text: "I Love You",
+        html:`<h1>Hello${user.userName}</h1>
+        <span>Please click here and verify your account</span><a href="http://localhost:3000/users/emailVerifications/${newUser._id}>Verify </a>"`
       });
       res.status(201).json({ succses: true, msg: "added new user", newUser });
     } catch (error) {
@@ -33,9 +35,9 @@ module.exports = {
       // Get the email + password
       const { userEmail, userPassword } = req.body;
 
-      if(!userEmail || !userPassword){
+      // if(!userEmail || !userPassword){
         
-      }
+      // }
 
       // Find the user with email + check if exist?!
       const user = await userModel.findOne({ userEmail });
@@ -56,4 +58,14 @@ module.exports = {
       res.status(401).json({ succses: false, msg: error });
     }
   },
+  verifyEmail: async (req, res) => {
+    try {
+      const userId = req.params.id;
+      await userModel.findByIdAndUpdate(userId, {verify: true})
+      res.status(200).send("You verify your email! Welcome")
+      
+    } catch (error) {
+      res.status(500).send(error)
+    }
+  }
 };
