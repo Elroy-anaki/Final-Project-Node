@@ -1,13 +1,15 @@
 const userModel = require("../models/user.model");
 const { compare } = require("bcrypt");
+const bcrypt = require("bcrypt")
 const {createToken} = require('../service/token.service')
 
 module.exports = {
   signUp: async (req, res) => {
+    console.log("SSD", req.body)
     // Get the user's details
     const user = req.body;
     // Generate the password
-    const hashPassword = bcrypt.hashSync(user.userPassword, 10);
+    const hashPassword = await bcrypt.hash(user.userPassword, 10);
     user.userPassword = hashPassword;
     // Save in the DB
     try {
