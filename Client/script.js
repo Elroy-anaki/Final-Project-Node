@@ -1,7 +1,8 @@
 const baseUrlProducts = "http://localhost:3000/products";
 const baseUrlUsers = "http://localhost:3000/users";
-const main = document.querySelector('main');
+const main = document.querySelector("main");
 const signUpSection = document.querySelector("#sign-up-section");
+const signInSection = document.querySelector("#sign-in-section");
 const productsTB = document.querySelector("#products-table");
 const newProductSection = document.querySelector("#new-product-section");
 
@@ -71,11 +72,10 @@ async function deleteProduct(productId) {
   buildProducts(allProducts);
 }
 
-
 function addProductBtn() {
   productsTB.innerHTML = "";
   signUpSection.innerHTML = "";
-  console.log("SDSDSD")
+  console.log("SDSDSD");
   newProductSection.innerHTML = `
 
   <form id="new-product-form"
@@ -149,7 +149,7 @@ function addProductBtn() {
           </div>
         </form>
   `;
-  const newProductForm = document.querySelector("#new-product-form")
+  const newProductForm = document.querySelector("#new-product-form");
   newProductForm.addEventListener("submit", async (e) => {
     const { productName, productPrice, productDescription, productImage } =
       e.target;
@@ -173,6 +173,7 @@ function addProductBtn() {
 function signUp() {
   productsTB.innerHTML = "";
   newProductSection.innerHTML = "";
+  signInSection.innerHTML = "";
   signUpSection.innerHTML = `
   <div class="border-2 border-black w-2/6 m-auto rounded-xl">
       <div class="w-full border-b-2 border-b-blue">
@@ -256,6 +257,72 @@ function signUp() {
     console.log(newUser);
     const response = await axios.post(`${baseUrlUsers}/signUp`, newUser);
     alert(`The user: ${userName.value} added succesfully`);
-    signUpSection.innerHTML = "";
+    signIn();
+  });
+}
+
+function signIn() {
+  productsTB.innerHTML = "";
+  newProductSection.innerHTML = "";
+  signUpSection.innerHTML = "";
+  signInSection.innerHTML = `
+<div class="border-2 border-black w-2/6 m-auto rounded-xl">
+      <div class="w-full border-b-2 border-b-blue">
+        <div
+          class="border-b-2 border-b-gray-800 bg-slate-300 rounded-t-xl flex justify-center items-center"
+        >
+          <h1 class="text-3xl text-sky-500 my-3 tracking-wide">Welcome back!</h1>
+        </div>
+        <div>
+          <form id="sing-in-form" class="w-full rounded-b-xl p-10">
+            <div class="flex flex-col px-4 py-2">
+              
+              <div>
+                <label for="userEmail" class="mb-1 ml-1">Email</label>
+                <input
+                  type="email"
+                  name="userEmail"
+                  id="userEamil"
+                  class="bg-slate-200 w-full h-9 rounded-md mb-5 text-black font-semibold border-2 border-sky-200"
+                  placeholder=" Your email..."
+                  required
+                />
+              </div>
+              <div>
+                <label for="userPassword" class="mb-1 ml-1">Password</label>
+                <input
+                  type="password"
+                  name="userPassword"
+                  id="userPassword"
+                  class="bg-slate-200 w-full h-9 rounded-md mb-5 text-black font-semibold border-2 border-sky-200"
+                  placeholder=" Your password.."
+                  required
+                />
+              </div>
+              
+            </div>
+            <div class="text-center">
+              <button
+                type="submit"
+                class="text-white rounded-lg bg-sky-500 text-xl px-3 p-2 font-semibold"
+              >
+                Login
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+`;
+  const signInForm = document.querySelector("#sing-in-form");
+  signInForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const { userEmail, userPassword } = e.target;
+    const user = {
+      userEmail: userEmail.value,
+      userPassword: userPassword.value,
+    };
+    const response = await axios.post(`${baseUrlUsers}/signIn`, user, { withCredentials: true });
+    console.log(response.data)
   });
 }

@@ -19,62 +19,42 @@
         <div
           class="border-b-2 border-b-gray-800 bg-slate-300 rounded-t-xl flex justify-center items-center"
         >
-          <h1 class="text-3xl text-sky-500 my-3 ">Register Form</h1>
+          <h1 class="text-3xl text-sky-500 my-3 tracking-wide">Welcome back!</h1>
         </div>
         <div>
-          <form class="w-full rounded-b-xl p-10">
+          <form id="sing-in-form" class="w-full rounded-b-xl p-10">
             <div class="flex flex-col px-4 py-2">
+              
               <div>
-                <label for="userName" class="ml-1">Full Name</label>
-                <input
-                  type="text"
-                  name="userName"
-                  id="userName"
-                  class="bg-slate-200 w-full h-9 rounded-md mb-5 text-black font-semibold border-2 border-sky-200"
-                  placeholder=" Your name..."
-                  required
-                />
-              </div>
-              <div>
-                <label for="userName" class="mb-1 ml-1">Email</label>
+                <label for="userEmail" class="mb-1 ml-1">Email</label>
                 <input
                   type="email"
-                  name="userName"
-                  id="userName"
+                  name="userEmail"
+                  id="userEamil"
                   class="bg-slate-200 w-full h-9 rounded-md mb-5 text-black font-semibold border-2 border-sky-200"
                   placeholder=" Your email..."
                   required
                 />
               </div>
               <div>
-                <label for="userName" class="mb-1 ml-1">Password</label>
+                <label for="userPassword" class="mb-1 ml-1">Password</label>
                 <input
                   type="password"
-                  name="userName"
-                  id="userName"
+                  name="userPassword"
+                  id="userPassword"
                   class="bg-slate-200 w-full h-9 rounded-md mb-5 text-black font-semibold border-2 border-sky-200"
                   placeholder=" Your password.."
                   required
                 />
               </div>
-              <div>
-                <label for="userName" class="mb-1 ml-1">City</label>
-                <input
-                  type="text"
-                  name="userName"
-                  id="userName"
-                  class="bg-slate-200 w-full h-9 rounded-md mb-5 text-black font-semibold border-2 border-sky-200"
-                  placeholder=" Live in...."
-                  required
-                />
-              </div>
+              
             </div>
             <div class="text-center">
               <button
                 type="submit"
                 class="text-white rounded-lg bg-sky-500 text-xl px-3 p-2 font-semibold"
               >
-                Submit
+                Login
               </button>
             </div>
           </form>
