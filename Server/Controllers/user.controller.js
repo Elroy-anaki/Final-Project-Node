@@ -20,8 +20,11 @@ module.exports = {
         to: newUser.userEmail,
         subject: "Open",
         text: "I Love You",
-        html: `<h1>Hello${user.userName}</h1>
-        <span>Please click here and verify your account</span><a href="http://localhost:3000/users/emailVerifications/${newUser._id}>Verify </a>"`,
+        html: `<h1>Hello ${user.userName}</h1>
+         <p>Please click the button below to verify your account:</p>
+         <a href="http://127.0.0.1:5500/Client/verifyEmail/verifyEmail.html?userId=${newUser._id}">
+           Verify Account
+         </a>`,
       });
       res.status(201).json({ succses: true, msg: "added new user", newUser });
     } catch (error) {
@@ -40,6 +43,7 @@ module.exports = {
 
       // Find the user with email + check if exist?!
       const user = await userModel.findOne({ userEmail });
+      console.log(user)
       if (!user) throw "The user doesn't exist!";
 
       // Compare the input password with the current password in DB
@@ -65,9 +69,43 @@ module.exports = {
     try {
       const userId = req.params.id;
       await userModel.findByIdAndUpdate(userId, { verify: true });
-      res.status(200).send("You verify your email! Welcome");
+      res.status(200).json({ mes: "You verify your email! Welcome!!!" });
     } catch (error) {
       res.status(500).send(error);
+    }
+  },
+  forgotPassword: async (req, res) => {
+    const userEmail = req.body.userEmail;
+    console.log(userEmail);
+    const user = await userModel.findOne({ userEmail: userEmail });
+    console.log(user._id);
+    transporter.sendMail({
+      from: process.env.SENDER_EMAIL,
+      to: user.userEmail,
+      subject: "Reset Password",
+      text: "I Love You",
+      html: `<h1>Hello ${user.userName}</h1>
+         <p>Please click the button below to reset your password:</p>
+         <a href="http://127.0.0.1:5500/Client/forgotPassword/forgotPassword.html?userId=${user._id}">
+           Reset Password
+         </a>`,
+    });
+  },
+  resetPassword: async (req, res) => {
+    const newPassword = req.body.newPassword;
+    const userId = req.params.id;
+    try {
+      const user = await userModel.findById(userId);
+      const hashPassword = await bcrypt.hash(newPassword, 10);
+      user.userPassword = hashPassword;
+      await user.save();
+      res
+        .status(200)
+        .json({ succses: true, mes: "The Password changed succesfully!" });
+    } catch (error) {
+      res
+        .status(500)
+        .json({ succses: true, mes: "The Password NOT changed succesfully!" });
     }
   },
 };
