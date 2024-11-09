@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"
+    ></script>
+    <script defer src="verifyEmail.js"></script>
+    <link rel="stylesheet" href="verifyEmail.css" />
+    <title>Verify Email</title>
+  </head>
+  <body>
+    <div id="mes" class="text-center px-16 py-4 border-2 border-sky-200 rounded-md w-1/5 m-auto mt-5">
+      <div>
+        <p class="text-lg font-semibold">
+          For verify your email click on the button
+        </p>
+      </div>
+      <div class="mt-4">
+        <button
+          type="button"
+          onclick="verifyEmail()"
+          class="text-xl border-2 border-sky-900 rounded-lg bg-sky-500 px-5 py-1"
+        >
+          Verify Email
+        </button>
+      </div>
+    </div>
+  </body>
+</html>
