@@ -1,21 +1,23 @@
 const express = require("express");
 const userModel = require("../models/user.model");
-const { signUp, signIn, verifyEmail, forgotPassword, resetPassword } = require("../controllers/user.controller");
+const {isUserVerifyOrExist} = require('../middlewares/user.middleware')
+
+const { signUp, signIn, verifyEmail, forgotPassword, resetPassword, logOut } = require("../controllers/user.controller");
 const {checkUserSchema} = require('../schema/checkSchema')
 
 const route = express.Router();
 
 route.post("/signUp", checkUserSchema, signUp);
 
-route.post("/signIn", signIn);
+route.post("/signIn",isUserVerifyOrExist, signIn);
 
-route.get("/emailVerifications/:id", verifyEmail)
-route.post("/forgotPassword/", forgotPassword)
+route.get("/emailVerifications/:id", verifyEmail);
+
+route.post("/forgotPassword/",isUserVerifyOrExist, forgotPassword);
+
 route.post("/resetPassword/:id", resetPassword)
-route.get("/r", (req, res) => {
-    res.clearCookie("token");
-    res.json("remove Token")
-})
+
+route.get("/logOut", logOut)
 
 
 module.exports = route;

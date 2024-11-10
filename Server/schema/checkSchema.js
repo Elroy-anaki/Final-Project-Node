@@ -14,10 +14,12 @@ module.exports = {
   checkUserSchema: async (req, res, next) => {
     try {
       const newUser = req.body;
+      console.log("MMMMM",newUser)
       await userModel.validate(newUser);
       next();
     } catch (error) {
-      res.json({ succes: false, mes: error.message });
+      console.log(error.message)
+      res.status(400).json({ succes: false, mes: error.message });
     }
   },
 };
