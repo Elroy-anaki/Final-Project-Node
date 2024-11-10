@@ -5,18 +5,13 @@ const baseUrlUsers = "http://localhost:3000/users";
 
 // Catch the elements
 const main = document.querySelector("main");
-const signUpSection = document.querySelector("#sign-up-section");
-const signInSection = document.querySelector("#sign-in-section");
-const productsTB = document.querySelector("#products-table");
-const newProductSection = document.querySelector("#new-product-section");
+const board = document.querySelector("#board");
+
 
 
 // Sign up Page
 function signUpPage() {
-  productsTB.innerHTML = "";
-  newProductSection.innerHTML = "";
-  signInSection.innerHTML = "";
-  signUpSection.innerHTML = `
+  board.innerHTML = `
   <div class="border-2 border-black w-2/6 m-auto rounded-xl">
       <div class="w-full border-b-2 border-b-blue">
         <div
@@ -86,37 +81,12 @@ function signUpPage() {
     </div>
   `;
   const signUpForm = document.querySelector("#sing-up-form");
-  const signUp = async (e) => {
-    e.preventDefault();
-
-    const { userName, userEmail, userPassword, userAddress } = e.target;
-    const newUser = {
-      userName: userName.value,
-      userEmail: userEmail.value,
-      userPassword: userPassword.value,
-      userAddress: userAddress.value,
-    };
-    try {
-      const response = await axios.post(`${baseUrlUsers}/signUp`, newUser);
-      const data = response.data;
-      alert(`${userName.value} added succesfully check your mail...`);
-      signIn();
-    } catch (error) {
-      if (error.response) {
-        console.log(error.response);
-        alert(error.response.data.msg);
-      }
-    }
-  };
   signUpForm.addEventListener("submit", signUp);
 }
 
 // Sign in Page
 function signInPage() {
-  productsTB.innerHTML = "";
-  newProductSection.innerHTML = "";
-  signUpSection.innerHTML = "";
-  signInSection.innerHTML = `
+  board.innerHTML = `
   <div class="border-2 border-black w-2/6 m-auto rounded-xl">
       <div class="w-full border-b-2 border-b-blue">
         <div
@@ -177,28 +147,6 @@ function signInPage() {
 `;
   const mes = document.querySelector("#mes");
   const signInForm = document.querySelector("#sing-in-form");
-  const signIn = async (e) => {
-    e.preventDefault();
-    const { userEmail, userPassword } = e.target;
-    const user = {
-      userEmail: userEmail.value,
-      userPassword: userPassword.value,
-    };
-    try {
-      const response = await axios.post(`${baseUrlUsers}/signIn`, user, {
-        withCredentials: true,
-      });
-      signInSection.innerHTML = `<h1 class="text-2xl text-center">Welcome...</h1>`;
-      setTimeout(() => {
-        getProducts();
-      }, 2000);
-    } catch (error) {
-      if (error.response) {
-        console.log(error.response.data);
-        mes.innerHTML = error.response.data.msg;
-      }
-    }
-  };
   signInForm.addEventListener("submit", signIn);
 }
 
@@ -230,9 +178,7 @@ async function logOut() {
 
 // Products Table Page
 function productsPage(arr) {
-  signInSection.innerHTML = "";
-  signUpSection.innerHTML = "";
-  productsTB.innerHTML = `<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+  board.innerHTML = `<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
           <table
             class="w-full text-sm rtl:text-right text-gray-500 dark:text-gray-400 text-center"
           >
@@ -277,8 +223,6 @@ function productsPage(arr) {
   });
 }
 async function getProducts() {
-  newProductSection.innerHTML = "";
-  signUpSection.innerHTML = "";
   const response = await fetch(`${baseUrlProducts}/getAllProducts`);
   const data = await response.json();
   console.log(data.allProducts);
@@ -287,11 +231,7 @@ async function getProducts() {
 
 // Add product page
 function addProductPage() {
-  productsTB.innerHTML = "";
-  signUpSection.innerHTML = "";
-  signInSection.innerHTML = "";
-  newProductSection.innerHTML = `
-
+  board.innerHTML = `
   <form id="new-product-form"
           class="max-w-md mx-auto border-2 border-slate-500 p-8 rounded-lg bg-slate-200"
           >
@@ -364,22 +304,8 @@ function addProductPage() {
         </form>
   `;
   const newProductForm = document.querySelector("#new-product-form");
-  const addProduct = async (e) => {
-    const { productName, productPrice, productDescription, productImage } =
-      e.target;
-    const newProduct = {
-      productName: productName.value,
-      productPrice: Number(productPrice.value),
-      productDescription: productDescription.value,
-      productImage: productImage.value,
-    };
-    const response = await axios.post(
-      `${baseUrlProducts}/addProduct`,
-      newProduct
-    );
-  };
   newProductForm.addEventListener("submit", addProduct);
-  // getProducts()
+  
 }
 async function deleteProduct(productId) {
   console.log(productId);
@@ -391,6 +317,64 @@ async function deleteProduct(productId) {
   productsPage(allProducts);
 }
 
+// Functions
+const signUp = async (e) => {
+  e.preventDefault();
 
+  const { userName, userEmail, userPassword, userAddress } = e.target;
+  const newUser = {
+    userName: userName.value,
+    userEmail: userEmail.value,
+    userPassword: userPassword.value,
+    userAddress: userAddress.value,
+  };
+  try {
+    const response = await axios.post(`${baseUrlUsers}/signUp`, newUser);
+    const data = response.data;
+    alert(`${userName.value} added succesfully check your mail...`);
+    signIn();
+  } catch (error) {
+    if (error.response) {
+      console.log(error.response);
+      alert(error.response.data.msg);
+    }
+  }
+};
+const signIn = async (e) => {
+  e.preventDefault();
+  const { userEmail, userPassword } = e.target;
+  const user = {
+    userEmail: userEmail.value,
+    userPassword: userPassword.value,
+  };
+  try {
+    const response = await axios.post(`${baseUrlUsers}/signIn`, user, {
+      withCredentials: true,
+    });
+    signInSection.innerHTML = `<h1 class="text-2xl text-center">Welcome...</h1>`;
+    setTimeout(() => {
+      getProducts();
+    }, 2000);
+  } catch (error) {
+    if (error.response) {
+      console.log(error.response.data);
+      mes.innerHTML = error.response.data.msg;
+    }
+  }
+};
+const addProduct = async (e) => {
+  const { productName, productPrice, productDescription, productImage } =
+    e.target;
+  const newProduct = {
+    productName: productName.value,
+    productPrice: Number(productPrice.value),
+    productDescription: productDescription.value,
+    productImage: productImage.value,
+  };
+  const response = await axios.post(
+    `${baseUrlProducts}/addProduct`,
+    newProduct
+  );
+};
 
 signUp();
