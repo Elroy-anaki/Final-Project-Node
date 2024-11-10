@@ -4,13 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="output.css" rel="stylesheet" />
+    <link href="mainPase.css" rel="stylesheet" />
     <script
       defer
       src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"
     ></script>
 
-    <script defer src="script.js"></script>
+    <script defer src="mainPage.js"></script>
     <title>Document</title>
   </head>
   <body>
@@ -82,7 +82,7 @@
             <div class="hidden sm:ml-6 sm:block">
               <div class="flex space-x-4">
                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                <button onclick="signUp()">
+                <button onclick="signUpPage()">
                   <a
                     href="#signUp"
                     class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
@@ -90,11 +90,18 @@
                     >SignUp</a
                   >
                 </button>
-                <button onclick="signIn()">
+                <button onclick="signInPage()">
                   <a
                     href="#signIn"
                     class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
                     >SignIn</a
+                  >
+                </button>
+                <button onclick="logOut()">
+                  <a
+                    href="#logOut"
+                    class="rounded-md px-3 py-2 text-sm font-medium text-red-800 hover:bg-gray-700 hover:text-red-400"
+                    >logOut</a
                   >
                 </button>
                 <button onclick="getProducts()">
@@ -104,7 +111,7 @@
                     >All Products</a
                   >
                 </button>
-                <button onclick="addProductBtn()">
+                <button onclick="addProductPage()">
                   <a
                     href="#addProductBtn"
                     class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
@@ -204,10 +211,8 @@
       </div>
     </nav>
     <main class="w-3/4 m-auto mt-6">
-      <section id="sign-up-section"></section>
-      <section id="sign-in-section"></section>
-      <section id="products-table"></section>
-      <section id="new-product-section"></section>
+      <section id="board"></section>
+  
     </main>
   </body>
 </html>
