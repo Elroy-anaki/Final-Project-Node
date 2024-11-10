@@ -15,7 +15,7 @@ route.get("/emailVerifications/:id", verifyEmail);
 
 route.post("/forgotPassword/",isUserVerifyOrExist, forgotPassword);
 
-route.post("/resetPassword/:id", resetPassword)
+route.post("/resetPassword/", resetPassword)
 
 route.get("/logOut", logOut)
 

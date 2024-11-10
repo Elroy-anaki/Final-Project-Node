@@ -17,12 +17,17 @@ const userSchema = mongoose.Schema(
     },
     userAddress: {
       type: String,
-      default: "Rehovot",
+      default: "",
     },
     verify: {
       type: Boolean,
       default: false,
     },
+    forgotPasswordId: {
+      type: String,
+      required: false,
+
+    }
     // verifyForGotPassword:
   },
   { timestamps: true }

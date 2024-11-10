@@ -5,7 +5,6 @@ module.exports = {
     try {
       const { userEmail } = req.body;
       const user = await userModel.findOne({ userEmail });
-      console.log(user)
       if (!user) throw "The user doesn't exist!";
       if (!user.verify) throw "Please verify your email";
 
@@ -15,4 +14,7 @@ module.exports = {
       res.status(400).json({ succses: false, msg: error });
     }
   },
+  generateForgotPasswordId: async (req, res, next) => {
+    
+  }
 };

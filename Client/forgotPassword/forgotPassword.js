@@ -6,10 +6,15 @@ const form = document.querySelector("form");
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   const newPassword = e.target.newPassword.value;
+
   const urlParams = new URLSearchParams(window.location.search);
   userId = urlParams.get("userId");
-  const response = await axios.post(`${baseUrlUsers}/resetPassword/${userId}`, {
+  forgotPasswordId = urlParams.get("forgotPasswordId");
+  
+  const response = await axios.post(`${baseUrlUsers}/resetPassword/`, {
     newPassword,
+    userId: userId,
+    forgotPasswordId: forgotPasswordId
   });
   mes.innerHTML = response.data.mes;
   setTimeout(() => {
