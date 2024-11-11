@@ -3,6 +3,7 @@ const userModel = require("../models/user.model");
 
 module.exports = {
   checkProductSchema: async (req, res, next) => {
+    console.log("Check Schema...")
     try {
       const newProdcut = req.body;
       await productModel.validate(newProdcut);
@@ -14,7 +15,7 @@ module.exports = {
   checkUserSchema: async (req, res, next) => {
     try {
       const newUser = req.body;
-      console.log("MMMMM",newUser)
+      newUser.userRole = "admin";
       await userModel.validate(newUser);
       next();
     } catch (error) {
