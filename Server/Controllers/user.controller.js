@@ -1,13 +1,12 @@
-const {nanoid} = require('nanoid')
+const { nanoid } = require("nanoid");
 const userModel = require("../models/user.model");
 const { compare } = require("bcrypt");
 const bcrypt = require("bcrypt");
 const { createToken } = require("../service/token.service");
-const transporter = require("../service/nodeMailer.service");
+const transporter = require("../config/nodeMailer.config");
 
 module.exports = {
   signUp: async (req, res) => {
-    
     try {
       // Get the user's details
       const user = req.body;
@@ -37,7 +36,7 @@ module.exports = {
   signIn: async (req, res) => {
     try {
       const { userPassword } = req.body;
-      const user  = req.user;
+      const user = req.user;
 
       // Compare the input password with the current password in DB
       const isCurrectPassword = await compare(userPassword, user.userPassword);
@@ -68,29 +67,33 @@ module.exports = {
     }
   },
   forgotPassword: async (req, res) => {
-    const { userEmail } = req.body;
-    const user = await userModel.findOne({ userEmail });
-    user.forgotPasswordId = nanoid();
-    user.save();
-    transporter.sendMail({
-      from: process.env.SENDER_EMAIL,
-      to: user.userEmail,
-      subject: "Reset Password",
-      html: `<h1>Hello ${user.userName}</h1>
-         <p>Please click the button below to reset your password:</p>
-         <a href="http://127.0.0.1:5500/Client/forgotPassword/forgotPassword.html?userId=${user._id}&forgotPasswordId=${user.forgotPasswordId}">
-           Reset Password
-         </a>`,
-    });
+    try {
+      const { userEmail } = req.body;
+      const user = await userModel.findOne({ userEmail });
+      user.forgotPasswordId = nanoid();
+      user.save();
+      transporter.sendMail({
+        from: process.env.SENDER_EMAIL,
+        to: user.userEmail,
+        subject: "Reset Password",
+        html: `<h1>Hello ${user.userName}</h1>
+           <p>Please click the button below to reset your password:</p>
+           <a href="http://127.0.0.1:5500/Client/forgotPassword/forgotPassword.html?userId=${user._id}&forgotPasswordId=${user.forgotPasswordId}">
+             Reset Password
+           </a>`,
+      });
+      res.status(200).json({ succes: true, msg: "check your email..." });
+    } catch (error) {
+      res.status(500).json({ succes: false, msg: error });
+    }
   },
   resetPassword: async (req, res) => {
     try {
-
-    const {userId, forgotPasswordId } = req.body;
-    console.log(req.body)
-    const newPassword = req.body.newPassword;
+      const { userId, forgotPasswordId } = req.body;
+      console.log(req.body);
+      const newPassword = req.body.newPassword;
       const user = await userModel.findById(userId);
-      if(user.forgotPasswordId !== forgotPasswordId) throw "Is not you!!!"
+      if (user.forgotPasswordId !== forgotPasswordId) throw "Is not you!!!";
       const hashPassword = await bcrypt.hash(newPassword, 10);
       user.userPassword = hashPassword;
       user.forgotPasswordId = undefined;
@@ -99,9 +102,7 @@ module.exports = {
         .status(200)
         .json({ succses: true, mes: "The Password changed succesfully!" });
     } catch (error) {
-      res
-        .status(500)
-        .json({ succses: false, mes: error });
+      res.status(500).json({ succses: false, mes: error });
     }
   },
   logOut: (req, res) => {
@@ -112,5 +113,5 @@ module.exports = {
       path: "/",
     });
     res.json("remove Token");
-  }
+  },
 };

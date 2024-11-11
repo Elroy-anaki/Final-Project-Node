@@ -1,17 +1,17 @@
 // Imports
-const cors = require('cors');
-const env = require('dotenv');
-env.config();
+require('dotenv').config();
+require("./config/db.config")();
+
 const express = require('express');
-require("./dataBase/DB_CONFIG")();
-const productRoute = require('./routes/Product.route')
-const userRoute = require('./routes/user.route')
+const cors = require('cors');
 const {logger} = require('./middlewares/global.middlewares')
 const cookieParser = require('cookie-parser')
+const productRoute = require('./routes/Product.route')
+const userRoute = require('./routes/user.route')
 
 // Define Variables for the program
 const app = express();
-const PORT = Number(process.env.PORT);
+const PORT = Number(process.env.PORT) || 5000;
 
 // Global middlewares
 app.use(cors({

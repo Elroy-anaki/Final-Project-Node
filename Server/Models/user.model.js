@@ -15,6 +15,11 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    userRole:{
+      type: String,
+      enum:["user", "admin"],
+      required: true
+    },
     userAddress: {
       type: String,
       default: "",
@@ -26,9 +31,7 @@ const userSchema = mongoose.Schema(
     forgotPasswordId: {
       type: String,
       required: false,
-
-    }
-    // verifyForGotPassword:
+    },
   },
   { timestamps: true }
 );

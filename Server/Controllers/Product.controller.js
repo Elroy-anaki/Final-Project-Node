@@ -1,10 +1,8 @@
 const productModel = require("../models/product.model");
-const transporter = require("../service/nodeMailer.service");
+const transporter = require("../config/nodeMailer.config");
 
 module.exports = {
   getAllProducts: async (req, res) => {
-    
-
     try {
       const allProducts = await productModel.find();
       res.json({
@@ -23,9 +21,9 @@ module.exports = {
   getById: async (req, res) => {
     try {
       const product = await productModel.findById(req.params.id);
-      res.json({ success: true, mes: "", product });
+      res.status(200).json({ success: true, product });
     } catch (error) {
-      res.json({ success: false, mes: "", error });
+      res.status(500).json({ success: false, msg: error });
     }
   },
   addProduct: async (req, res) => {
@@ -61,11 +59,11 @@ module.exports = {
   },
   deleteProduct: async (req, res) => {
     try {
-      const deletedProduct = await productModel.findByIdAndDelete(
-        req.params.id
-      );
+      await productModel.findByIdAndDelete(req.params.id);
       const allProducts = await productModel.find();
       res.status(200).json(allProducts);
-    } catch (error) {}
+    } catch (error) {
+      res.status(500).json({ success: false, msg: error });
+    }
   },
 };

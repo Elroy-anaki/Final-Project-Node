@@ -7,9 +7,10 @@ const main = document.querySelector("main");
 const board = document.querySelector("#board");
 const navbar = document.querySelector("#navbar");
 
+// Build navbar
 function buildNavBar() {
   const token = localStorage.getItem("token");
-  if(!token) {
+  if (!token) {
     navbar.innerHTML = `
   <nav class="bg-gray-800">
       <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -79,6 +80,7 @@ function buildNavBar() {
             <div class="hidden sm:ml-6 sm:block">
               <div class="flex space-x-4">
                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+                
                 <button onclick="signUpPage()">
                   <a
                     href="#signUp"
@@ -188,9 +190,7 @@ function buildNavBar() {
       </div>
     </nav>
   `;
-  
-
-  } else{
+  } else {
     navbar.innerHTML = `
   <nav class="bg-gray-800">
       <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -375,11 +375,14 @@ function buildNavBar() {
       </div>
     </nav>
   `;
-
   }
-  
 }
-
+function buildGreeting() {
+  board.innerHTML = `
+  <div class="w-full text-center p-4">
+        <h2 class="text-3xl text-sky-800">Welcome To Our Site, We hope You'll enjoy!!!</h2>
+      </div>`;
+}
 // Sign up Page
 function signUpPage() {
   board.innerHTML = `
@@ -523,14 +526,15 @@ function signInPage() {
 // Log out
 async function logOut() {
   try {
-    localStorage.removeItem("token")
-    const response = await axios.get(`${baseUrlUsers}/logOut`, {
+    localStorage.removeItem("token");
+    await axios.get(`${baseUrlUsers}/logOut`, {
       withCredentials: true,
     });
     buildNavBar();
-    board.innerHTML = "";
-    console.log(response);
-  } catch (error) {}
+    buildGreeting()
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 // Products Table Page
@@ -663,13 +667,18 @@ function addProductPage() {
   newProductForm.addEventListener("submit", addProduct);
 }
 async function deleteProduct(productId) {
-  console.log(productId);
-  const response = await axios.delete(
-    `${baseUrlProducts}/deleteProduct/${productId}`
-  );
-  const allProducts = await response.data;
-  console.log(allProducts);
-  productsPage(allProducts);
+  const token = localStorage.getItem("token");
+  try {
+    const response = await axios.delete(
+      `${baseUrlProducts}/deleteProduct/${productId}?token=${token}`
+    );
+    const allProducts = await response.data;
+    console.log(allProducts);
+    productsPage(allProducts);
+  } catch (error) {
+    console.log(error.response.data.msg);
+    alert(error.response.data.msg);
+  }
 }
 
 // Functions
@@ -719,14 +728,26 @@ const signIn = async (e) => {
     }
   }
 };
-
 const forgotPassword = async (userEmail) => {
-  if (!userEmail) alert("Enter your email");
-  await axios.post(`${baseUrlUsers}/forgotPassword`, {
-    userEmail: userEmail,
-  });
+  try {
+    if (!userEmail) {
+      alert("Please enter your email");
+      return;
+    }
+
+    const response = await axios.post(`${baseUrlUsers}/forgotPassword`, {
+      userEmail: userEmail,
+    });
+    console.log("SFFSF");
+    board.innerHTML = `<h1 class="text-2xl text-center text-sky-500">${response.data.msg}</h1>`;
+  } catch (error) {
+    console.log(error);
+    board.innerHTML = error.response.data.msg;
+    signInPage();
+  }
 };
 const addProduct = async (e) => {
+  e.preventDefault();
   const { productName, productPrice, productDescription, productImage } =
     e.target;
   const newProduct = {
@@ -734,12 +755,19 @@ const addProduct = async (e) => {
     productPrice: Number(productPrice.value),
     productDescription: productDescription.value,
     productImage: productImage.value,
+    token: localStorage.getItem("token"),
   };
-  const response = await axios.post(
-    `${baseUrlProducts}/addProduct`,
-    newProduct
-  );
+  try {
+    const response = await axios.post(
+      `${baseUrlProducts}/addProduct`,
+      newProduct
+    );
+    console.log(response.data);
+  } catch (error) {
+    alert(error.response.data.msg);
+  }
 };
+
 buildNavBar();
+buildGreeting();
 signUp();
-{/*  */}
