@@ -15,7 +15,7 @@ module.exports = {
   checkUserSchema: async (req, res, next) => {
     try {
       const newUser = req.body;
-      newUser.userRole = "admin";
+      newUser.userRole = "user";
       await userModel.validate(newUser);
       next();
     } catch (error) {
