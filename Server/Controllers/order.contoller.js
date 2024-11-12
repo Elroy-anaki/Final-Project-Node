@@ -12,7 +12,10 @@ module.exports = {
   },
   getOrderById: async (req, res) => {
     try {
-      const order = await orderModel.findById(req.params.id);
+      const { id } = req.params;
+      const order = await orderModel
+        .findById(id)
+        .populate([{ path: "products.product", select: "productPrice" }, {path: "userId", select: "userEmail"}]);
       res.status(200).json({ succses: true, order });
     } catch (error) {
       res.status(500).json({ succses: true, msg: error });
@@ -20,9 +23,9 @@ module.exports = {
   },
   deleteOrderById: async (req, res) => {
     try {
-        const {id} = req.params;
-        if (!id) throw " the order doesn't exist!";
-        
+      const { id } = req.params;
+      if (!id) throw " the order doesn't exist!";
+
       const deletedOrder = await orderModel.findByIdAndDelete(id);
       res
         .status(200)
