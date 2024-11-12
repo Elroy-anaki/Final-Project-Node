@@ -8,6 +8,13 @@ const {
 } = require("../controllers/product.controller");
 const {checkProductSchema} = require('../schema/checkSchema')
 const {isAdmin} = require('../middlewares/product.middleware')
+const upload = require("../middlewares/upload.multer");
+
+
+
+
+
+
 const route = express.Router();
 
 
@@ -16,7 +23,7 @@ route.get("/getAllProducts", getAllProducts);
 
 route.get("/getById/:id", getById);
 
-route.post("/addProduct",isAdmin, checkProductSchema, addProduct);
+route.post("/addProduct", upload.single("productImage"),checkProductSchema, addProduct);
 
 // route.put("/editProduct/:id", editProduct);
 

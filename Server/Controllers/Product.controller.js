@@ -1,5 +1,5 @@
 const productModel = require("../models/product.model");
-const transporter = require("../config/nodeMailer.config");
+const cloudinary = require("../config/cloudinary.config");
 
 module.exports = {
   getAllProducts: async (req, res) => {
@@ -27,8 +27,12 @@ module.exports = {
     }
   },
   addProduct: async (req, res) => {
+    if (req.file) {
+      const details = await cloudinary.uploader.upload(req.file.path);
+      req.body.productImage = details.secure_url;
+    }
+
     const newProdcut = req.body;
-    console.log(newProdcut);
     try {
       const product = await productModel.create(newProdcut);
       res.status(200).json({

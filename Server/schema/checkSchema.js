@@ -5,6 +5,8 @@ module.exports = {
   checkProductSchema: async (req, res, next) => {
     console.log("Check Schema...")
     try {
+      console.log(req.body)
+      console.log(req.file)
       const newProdcut = req.body;
       await productModel.validate(newProdcut);
       next();
@@ -15,7 +17,7 @@ module.exports = {
   checkUserSchema: async (req, res, next) => {
     try {
       const newUser = req.body;
-      newUser.userRole = "user";
+      newUser.userRole = "admin";
       await userModel.validate(newUser);
       next();
     } catch (error) {

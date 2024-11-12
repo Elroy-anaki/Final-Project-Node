@@ -539,7 +539,9 @@ async function logOut() {
 
 // Products Table Page
 function productsPage(arr) {
-  board.innerHTML = `<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+  board.innerHTML = `
+  <div class="w-5/6 m-auto"
+  <div class="relative overflow-x-auto shadow-md  sm:rounded-lg">
           <table
             class="w-full text-sm rtl:text-right text-gray-500 dark:text-gray-400 text-center"
           >
@@ -556,7 +558,10 @@ function productsPage(arr) {
             </thead>
             <tbody id="products"></tbody>
           </table>
-        </div>`;
+        </div>
+        </div>
+        `
+        ;
   const products = document.querySelector("#products");
 
   arr.forEach((product) => {
@@ -592,76 +597,61 @@ async function getProducts() {
 // Add product page
 function addProductPage() {
   board.innerHTML = `
-  <form id="new-product-form"
-          class="max-w-md mx-auto border-2 border-slate-500 p-8 rounded-lg bg-slate-200"
-          >
-          <div class="relative z-0 w-full mb-5 group">
+  <div class="w-3/4 m-auto">
+  <div class="bg-gray-800 flex flex-col px-8 py-7 rounded-lg">
+        <div class="border-b-2 border-white mb-6">
+          <h2 class="text-3xl font-semibold text-center text-white mb-3">Add Product Form</h2>
+        </div>
+        <form id="new-product-form" class="w-5/6 m-auto">
+          <div class="flex flex-col mb-6">
+            <label for="productName"></label>
             <input
-              type="text"
-              name="productName"
-              id="productName"
-              class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=" "
-              required
+            id="productName"
+            type="text"
+            placeholder="Name..."
+            required
+            class="bg-inherit border-b-2 border-white rounded-sm px-3 py-1 text-white placeholder-white"
             />
-            <label
-              for="productName"
-              class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-              >Name</label
-            >
           </div>
-          <div class="relative z-0 w-full mb-5 group">
-            <input
-              type="number"
-              name="productPrice"
+          <div class="flex flex-col mb-6">
+              <label for="productPrice"></label>
+              <input
               id="productPrice"
-              class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=" "
+              type="number"
+              placeholder="Price..."
               required
+              class="bg-inherit border-b-2 border-white rounded-sm px-3 py-1 text-white placeholder-white"
             />
-            <label
-              for="productPrice"
-              class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-              >Price</label
-            >
           </div>
-          <div class="relative z-0 w-full mb-5 group">
+          <div class="flex flex-col mb-6">
+            <label for="productDescription"></label>
             <input
+            id="productDescription"
               type="text"
-              name="productDescription"
-              id="productDescription"
-              class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=" "
+              placeholder="Description..."
+              required
+              class="bg-inherit border-b-2 border-white rounded-sm px-3 py-1 text-white placeholder-white"
             />
-            <label
-              for="productDescription"
-              class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-              >Description</label
-            >
           </div>
-          <div class="relative z-0 w-full mb-5 group">
-            <input
-              type="url"
-              name="productImage"
-              id="productImage"
-              class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=" "
-            />
+          <div class="flex flex-col mb-6">
             <label
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               for="productImage"
-              class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-              >Image (URL)</label
+              ></label
             >
+            <input
+            id="productImage"
+              class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+              type="file"
+            />
           </div>
-          <div class="text-center">
-            <button
-              type="submit"
-              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              Add Product
-            </button>
+          <div class="w-1/2">
+            <button type="submit" class="text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Add Product</button>
+
           </div>
         </form>
+      </div>
+      </div>
   `;
   const newProductForm = document.querySelector("#new-product-form");
   newProductForm.addEventListener("submit", addProduct);
